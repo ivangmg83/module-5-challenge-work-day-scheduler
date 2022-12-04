@@ -1,30 +1,30 @@
 var todaysDate = dayjs().format('dddd, MMMM D, YYYY');
 $('#currentDay').text(todaysDate);
-var hourEl = ['1','2'];
-console.log(hourEl);
-var currentHour = dayjs().hour();
-console.log(currentHour);
 
-
-if (hourEl+8<currentHour){
-  console.log(hourEl[i+8]);
-  // hourEl.attr('class', 'present');
-}
-
-// if (lunchBill < 10) {
-//   console.log("Cost Rating: $");
-// } else if (lunchBill >= 10 && lunchBill < 15) {
-//   console.log("Cost Rating: $$");
-// } else {
-//   console.log("Cost Rating: $$$");
-// }
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
 
-$(function () {
-    //
+function hourComparison () {
+  var currentHour = dayjs().hour();
+  $(".time-block").each(function () {
+    var blockHour = parseInt($(this).attr("id").split("-")[1]);
+    console.log(blockHour);
+    if(blockHour < currentHour) {
+      $(this).addClass("past");
+    } else if(blockHour === currentHour) {
+      $(this).removeClass("past");
+      $(this).addClass("present");
+    } else {
+      $(this).removeClass("past");
+      $(this).removeClass("present");
+      $(this).addClass("future");
+    }   
+  });
+}
+ hourComparison();
+   //
     // TODO: Add code to apply the past, present, or future class to each time
     // block by comparing the id to the current hour. HINTS: How can the id
     // attribute of each time-block be used to conditionally add or remove the
@@ -41,6 +41,4 @@ $(function () {
     // TODO: Add code to get any user input that was saved in localStorage and set
     // the values of the corresponding textarea elements. HINT: How can the id
     // attribute of each time-block be used to do this?
-    //    
-  });
-  
+    //
